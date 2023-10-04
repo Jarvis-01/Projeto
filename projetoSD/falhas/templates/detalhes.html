@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+<main>
+    {% block content %}
+        <h1> APP falhas/detalhes </h1>
+        {% for item in falhas %}
+
+            <ul>
+                <li>{{ item.titulo}}</li>
+                <li>{{ item.equipamento}}</li>
+                <li>{{ item.get_status_dispositivo_display}}</li>
+                <li>{{ item.registro_criado}}</li>
+                <li>{{ item.registro_atualizado}}</li>
+                <li>{{ item.detalhes}}</li>
+            </ul>
+        {% endfor %}
+    {% endblock %}
+</main>

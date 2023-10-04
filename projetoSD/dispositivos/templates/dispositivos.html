@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+<main>
+    {% block content %}
+        <h1> APP DISPOSITIVOS </h1>
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">Sala</th>
+                <th scope="col">Referência</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for e in lista %}
+              <tr>
+                <td>{{ e.nome }}</td>
+                <td>{{ e.sala}}</td>
+                <td>{{ e.referencia}}</td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+    {% endblock %}
+</main>
