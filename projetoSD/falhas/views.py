@@ -2,6 +2,7 @@ from datetime import date
 from django.http import Http404
 from django.shortcuts import render
 from .models import Falha
+from .forms import FalhasForm
 
 # Create your views here.
 def index(request):
@@ -47,3 +48,16 @@ def detalhes(request,pk):
         'falhas': falhas
     }
     return render(request, 'detalhes.html', context)
+
+def adicionar(request):
+    form = FalhasForm()
+    if request.method == "POST":
+        form = FalhasForm(request.POST)
+        if form.is_valid():
+            post = form.save()
+            post.save()
+            form = FalhasForm()
+            return render(request, 'adicionar_dispositivo.html', {'form': form})
+        else:
+            form = FalhasForm()
+    return render(request, 'adicionar_dispositivo.html', {'form': form})    
