@@ -12,7 +12,7 @@ class Falha(models.Model):
         ("D", "Defeito"),
         ("R", "Reparação"),
     }
-    status_dispositivo = models.CharField(max_length=30, choices=st, default="F")
+    status_dispositivo = models.CharField(max_length=30, choices=st, default="D")
 
     registro_criado = models.DateField(auto_now_add=True, null=True, blank=True)
 

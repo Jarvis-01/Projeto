@@ -1,6 +1,6 @@
 from datetime import date
 from django.http import Http404
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Falha
 from .forms import FalhasForm
 
@@ -57,7 +57,28 @@ def adicionar(request):
             post = form.save()
             post.save()
             form = FalhasForm()
-            return render(request, 'adicionar_dispositivo.html', {'form': form})
+            return redirect('../')
         else:
             form = FalhasForm()
     return render(request, 'adicionar_dispositivo.html', {'form': form})    
+
+def editar(request, id):
+    falhas = get_object_or_404(Falha, pk=id)
+    form = FalhasForm(instance=falhas)
+
+    if(request.method == 'POST'):
+        form = FalhasForm(request.POST, instance=falhas)
+
+        if(form.is_valid()):
+            falhas.save()
+            return redirect('../')
+        else:
+            return render(request, 'editar_falha.html', {'form': form, 'falhas': falhas})
+
+    else:
+        return render(request, 'editar_falha.html', {'form': form, 'falhas': falhas})
+    
+def deletar(request, id):
+    falhas = get_object_or_404(Falha, pk=id)
+    falhas.delete()
+    return redirect('../')

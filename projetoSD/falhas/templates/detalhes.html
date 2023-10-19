@@ -13,6 +13,8 @@
                 <li>{{ item.registro_atualizado}}</li>
                 <li>{{ item.detalhes}}</li>
             </ul>
+            <a href="../../editar/{{item.pk}}">Editar</a>
+            <a href="../../deletar/{{item.pk}}">Deletar</a>
         {% endfor %}
     {% endblock %}
 </main>
