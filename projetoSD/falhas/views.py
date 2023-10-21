@@ -1,7 +1,8 @@
 from datetime import date
 from django.http import Http404
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Falha
+from .forms import FalhasForm
 
 # Create your views here.
 def index(request):
@@ -34,7 +35,7 @@ def index(request):
     }
     return render(request, 'falhas.html', context)
 
-def detalhes(request,pk):
+def detalhe(request,pk):
     print("Primary Key {}".format(pk))
     try:
         falhas = Falha.objects.filter(pk=pk)
@@ -46,4 +47,38 @@ def detalhes(request,pk):
     context = {
         'falhas': falhas
     }
-    return render(request, 'detalhes.html', context)
+    return render(request, 'detalhe.html', context)
+
+def adicionar(request):
+    form = FalhasForm()
+    if request.method == "POST":
+        form = FalhasForm(request.POST)
+        if form.is_valid():
+            post = form.save()
+            post.save()
+            form = FalhasForm()
+            return redirect('../')
+        else:
+            form = FalhasForm()
+    return render(request, 'adicionar_dispositivo.html', {'form': form})    
+
+def editar(request, id):
+    falhas = get_object_or_404(Falha, pk=id)
+    form = FalhasForm(instance=falhas)
+
+    if(request.method == 'POST'):
+        form = FalhasForm(request.POST, instance=falhas)
+
+        if(form.is_valid()):
+            falhas.save()
+            return redirect('../')
+        else:
+            return render(request, 'editar_falha.html', {'form': form, 'falhas': falhas})
+
+    else:
+        return render(request, 'editar_falha.html', {'form': form, 'falhas': falhas})
+    
+def deletar(request, id):
+    falhas = get_object_or_404(Falha, pk=id)
+    falhas.delete()
+    return redirect('../')

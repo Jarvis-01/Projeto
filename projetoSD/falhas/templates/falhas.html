@@ -55,7 +55,7 @@
             <tbody>
             {% for e in lista %}
               <tr>
-                <td><a href="{% url 'detalhes' pk=e.pk %}">{{ e.equipamento }}</a></td>
+                <td><a href="detalhe/{{e.pk}}">{{ e.equipamento }}</a></td>
                 <td>{{ e.get_status_dispositivo_display }}</td>
                 <td>{{ e.registro_atualizado }}</td>
               </tr>

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+<main>
+    {% block content %}
+        <h1> APP dispositivos/detalhes </h1>
+        {% for item in dispositivos %}
+
+            <ul>
+                <li>{{ item.nome}}</li>
+                <li>{{ item.id_automatico}}</li>
+                <li>{{ item.sala}}</li>
+                <li>{{ item.referencia}}</li>
+            </ul>
+            <a href="../../editar/{{item.pk}}">Editar</a>
+            <a href="../../deletar/{{item.pk}}">Deletar</a>
+        {% endfor %}
+    {% endblock %}
+</main>
