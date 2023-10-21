@@ -15,7 +15,7 @@
             <tbody>
             {% for e in lista %}
               <tr>
-                <td>{{ e.nome }}</td>
+                <td><a href="detalhes/{{e.pk}}">{{ e.nome }}</a></td>
                 <td>{{ e.sala}}</td>
                 <td>{{ e.referencia}}</td>
                 <td><a href="editar/{{e.pk}}">Editar</a> <a href="deletar/{{e.pk}}">Remover</a></td>

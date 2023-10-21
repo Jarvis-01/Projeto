@@ -1,3 +1,4 @@
+from django.http import Http404
 from django.shortcuts import render, get_object_or_404, redirect
 from . models import Dispositivos
 from . forms import DispositivosForm
@@ -43,3 +44,17 @@ def deletar(request, id):
     dispositivos = get_object_or_404(Dispositivos, pk=id)
     dispositivos.delete()
     return redirect('../')
+
+
+def detalhes(request,pk):
+    try:
+        dispositivos = Dispositivos.objects.filter(pk=pk)
+        print(dispositivos.values())
+        
+    except dispositivos.DoesNotExist:
+        raise Http404('Dispositivo Não Existe')
+    # consulta
+    context = {
+        'dispositivos': dispositivos
+    }
+    return render(request, 'detalhes.html', context)

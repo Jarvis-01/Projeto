@@ -35,7 +35,7 @@ def index(request):
     }
     return render(request, 'falhas.html', context)
 
-def detalhes(request,pk):
+def detalhe(request,pk):
     print("Primary Key {}".format(pk))
     try:
         falhas = Falha.objects.filter(pk=pk)
@@ -47,7 +47,7 @@ def detalhes(request,pk):
     context = {
         'falhas': falhas
     }
-    return render(request, 'detalhes.html', context)
+    return render(request, 'detalhe.html', context)
 
 def adicionar(request):
     form = FalhasForm()
