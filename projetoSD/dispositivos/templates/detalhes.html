@@ -13,6 +13,9 @@
             </ul>
             <a href="../../editar/{{item.pk}}">Editar</a>
             <a href="../../deletar/{{item.pk}}">Deletar</a>
+            <form action="{% url 'gerarqr' %}" method="get">
+                <button type="submit">Gerar QR Code</button>
+            </form>
         {% endfor %}
     {% endblock %}
 </main>

@@ -1,9 +1,12 @@
-from django.http import Http404
+import io
+from django.http import Http404, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from . models import Dispositivos
 from . forms import DispositivosForm
-
+import qrcode
+from PIL import Image
 # Create your views here.
+data = ''
 def index(request):
     dispositivos = Dispositivos.objects.all()
     context = {
@@ -58,3 +61,31 @@ def detalhes(request,pk):
         'dispositivos': dispositivos
     }
     return render(request, 'detalhes.html', context)
+
+def gerarqr(request):
+    data = request.META.get('HTTP_REFERER', None)
+    qr = qrcode.QRCode(
+        version=1,
+        error_correction=qrcode.constants.ERROR_CORRECT_L,
+        box_size=10,
+        border=4,
+    )
+    qr.add_data(data)
+    qr.make(fit=True)
+    
+    img = qr.make_image(fill_color="black", back_color="white")
+
+    # Salvar o QR code em um objeto de BytesIO
+    img_buffer = io.BytesIO()
+    img.save(img_buffer, format="PNG")
+
+    # Retornar o QR code como um arquivo de download
+    response = HttpResponse(content_type="image/png")
+    response['Content-Disposition'] = 'attachment; filename="qrcode.png"'
+    img_buffer.seek(0)
+    response.write(img_buffer.read())
+
+    return response
+
+
+
