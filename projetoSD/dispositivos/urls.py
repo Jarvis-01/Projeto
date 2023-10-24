@@ -7,4 +7,5 @@ urlpatterns = [
     path('editar/<int:id>', views.editar, name='editar'),
     path('deletar/<int:id>', views.deletar, name='deletar'),
     path("detalhes/<int:pk>/", views.detalhes, name='detalhes'),
+    path('gerarqr/', views.gerarqr, name='gerarqr'),
 ]
