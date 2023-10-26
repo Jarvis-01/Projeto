@@ -5,7 +5,7 @@ from dispositivos.models import Dispositivos
 class Falha(models.Model):
     titulo = models.CharField(max_length=250)
 
-    equipamento = models.ForeignKey(Dispositivos, on_delete=models.CASCADE, null=True, blank=True, related_name="equipamento")
+    equipamento = models.ForeignKey(Dispositivos, on_delete=models.CASCADE, null=True, blank=True, related_name="falhas")
 
     st = {
         ("F", "Funcionando"),

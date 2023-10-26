@@ -2,7 +2,7 @@ import io
 from django.http import Http404, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from . models import Dispositivos
-from . forms import DispositivosForm
+from . forms import DispositivosForm, FalhaForm
 import qrcode
 from PIL import Image
 # Create your views here.
@@ -50,6 +50,10 @@ def deletar(request, id):
 
 
 def detalhes(request,pk):
+    dispositivo = Dispositivos.objects.get(pk=pk)
+    falhas = dispositivo.falhas.all()
+    print("Lista de falhas do dispositivo: {}".format(falhas))
+
     try:
         dispositivos = Dispositivos.objects.filter(pk=pk)
         print(dispositivos.values())
@@ -58,7 +62,8 @@ def detalhes(request,pk):
         raise Http404('Dispositivo Não Existe')
     # consulta
     context = {
-        'dispositivos': dispositivos
+        'dispositivos': dispositivos,
+        'falhas': falhas
     }
     return render(request, 'detalhes.html', context)
 
@@ -86,6 +91,21 @@ def gerarqr(request):
     response.write(img_buffer.read())
 
     return response
+
+def criar_falha(request, dispositivo_id):
+    dispositivos = Dispositivos.objects.get(pk=dispositivo_id)
+    
+    if request.method == 'POST':
+        form = FalhaForm(request.POST)
+        if form.is_valid():
+            nova_falha = form.save(commit=False)
+            nova_falha.dispositivos = dispositivos
+            nova_falha.save()
+            return redirect('/dispositivos/detalhes/{}'.format(dispositivo_id))
+    else:
+        form = FalhaForm(initial={'equipamento': dispositivos})
+    
+    return render(request, 'criar_falha.html', {'form': form, 'equipamento': dispositivos})
 
 
 

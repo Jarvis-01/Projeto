@@ -55,9 +55,9 @@
             <tbody>
             {% for e in lista %}
               <tr>
-                <td><a href="detalhe/{{e.pk}}">{{ e.equipamento }}</a></td>
+                <td>{{ e.equipamento }}</td>
                 <td>{{ e.get_status_dispositivo_display }}</td>
-                <td>{{ e.registro_atualizado }}</td>
+                <td>{{ e.registro_atualizado }} <a href="detalhe/{{e.pk}}">Detalhes</a></td>
               </tr>
             {% endfor %}
             </tbody>

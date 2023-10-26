@@ -16,6 +16,15 @@
             <form action="{% url 'gerarqr' %}" method="get">
                 <button type="submit">Gerar QR Code</button>
             </form>
+            <a href="../../criar_falha/{{item.pk}}">Criar Falha</a>
+        {% endfor %}
+        <h2>Lista de falhas:</h2>
+        {% for item in falhas %}
+
+            <ul>
+                <li>{{ item.titulo}} {{ item.get_status_dispositivo_display}} <a href="../../../falhas/detalhe/{{item.pk}}">Detalhes</a></li>
+            </ul>
+            
         {% endfor %}
     {% endblock %}
 </main>
