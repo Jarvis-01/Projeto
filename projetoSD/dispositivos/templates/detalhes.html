@@ -1,29 +1,29 @@
 {% extends 'base.html' %}
 
-<main>
-    {% block content %}
-        <h1> APP dispositivos/detalhes </h1>
-        {% for item in dispositivos %}
 
-            <ul>
-                <li>{{ item.nome}}</li>
-                <li>{{ item.id_automatico}}</li>
-                <li>{{ item.sala}}</li>
-                <li>{{ item.referencia}}</li>
-            </ul>
-            <a href="../../editar/{{item.pk}}">Editar</a>
-            <a href="../../deletar/{{item.pk}}">Deletar</a>
-            <form action="{% url 'gerarqr' %}" method="get">
-                <button type="submit">Gerar QR Code</button>
-            </form>
-            <a href="../../criar_falha/{{item.pk}}">Criar Falha</a>
-        {% endfor %}
-        <h2>Lista de falhas:</h2>
-        {% for item in falhas %}
+{% block content %}
+    <h1>Mostrando informações</h1>
+    {% for item in dispositivos %}
 
-            <ul>
-                <li>{{ item.titulo}} {{ item.get_status_dispositivo_display}} <a href="../../../falhas/detalhe/{{item.pk}}">Detalhes</a></li>
-            </ul>
-        {% endfor %}
-    {% endblock %}
-</main>
+        <ul>
+            <li>Nome: {{ item.nome}}</li>
+            <li>Id: {{ item.id_automatico}}</li>
+            <li>Sala: {{ item.sala}}</li>
+            <li>Referencia: {{ item.referencia}}</li>
+        </ul>
+        <a href="../../editar/{{item.pk}}">Editar</a>
+        <a href="../../deletar/{{item.pk}}">Deletar</a>
+        <form action="{% url 'gerarqr' %}" method="get">
+            <button type="submit">Gerar QR Code</button>
+        </form>
+        <a href="../../criar_falha/{{item.pk}}">Criar Falha</a>
+    {% endfor %}
+    <h2>Lista de falhas:</h2>
+    {% for item in falhas %}
+
+        <ul>
+            <li>Tipo de falha: {{ item.titulo}} | Status: {{ item.get_status_dispositivo_display}} <a href="../../../falhas/detalhe/{{item.pk}}">Detalhes</a></li>
+        </ul>
+    {% endfor %}
+{% endblock %}
+

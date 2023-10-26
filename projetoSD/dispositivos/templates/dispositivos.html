@@ -1,27 +1,27 @@
 {% extends 'base.html' %}
 
-<main>
-    {% block content %}
-        <h1> APP DISPOSITIVOS </h1>
-        <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">Nome</th>
-                <th scope="col">Sala</th>
-                <th scope="col">Referência</th>
-                <th scope="col">Editar/Remover</th>
-              </tr>
-            </thead>
-            <tbody>
-            {% for e in lista %}
-              <tr>
-                <td><a href="detalhes/{{e.pk}}">{{ e.nome }}</a></td>
-                <td>{{ e.sala}}</td>
-                <td>{{ e.referencia}}</td>
-                <td><a href="editar/{{e.pk}}">Editar</a> <a href="deletar/{{e.pk}}">Remover</a></td>
-              </tr>
-            {% endfor %}
-            </tbody>
-          </table>
-    {% endblock %}
-</main>
+
+{% block content %}
+    <h1> APP DISPOSITIVOS </h1>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Nome</th>
+            <th scope="col">Sala</th>
+            <th scope="col">Referência</th>
+            <th scope="col">Detalhes</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for e in lista %}
+          <tr>
+            <td>{{ e.nome }}</td>
+            <td>{{ e.sala}}</td>
+            <td>{{ e.referencia}}</td>
+            <td><a href="detalhes/{{e.pk}}">Detalhes</a></td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      <a href="{% url 'adicionar' %}">adicionar dispositivo</a>
+{% endblock %}

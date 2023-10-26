@@ -1,20 +1,19 @@
 {% extends 'base.html' %}
 
-<main>
-    {% block content %}
-        <h1> APP falhas/detalhes </h1>
-        {% for item in falhas %}
 
-            <ul>
-                <li>{{ item.titulo}}</li>
-                <li>{{ item.equipamento}}</li>
-                <li>{{ item.get_status_dispositivo_display}}</li>
-                <li>{{ item.registro_criado}}</li>
-                <li>{{ item.registro_atualizado}}</li>
-                <li>{{ item.detalhes}}</li>
-            </ul>
-            <a href="../../editar/{{item.pk}}">Editar</a>
-            <a href="../../deletar/{{item.pk}}">Deletar</a>
-        {% endfor %}
-    {% endblock %}
-</main>
+{% block content %}
+    <h1> APP falhas/detalhes </h1>
+    {% for item in falhas %}
+
+        <ul>
+            <li>Tipo: {{ item.titulo}}</li>
+            <li>Dispositivo: {{ item.equipamento}}</li>
+            <li>Status:{{ item.get_status_dispositivo_display}}</li>
+            <li>Data criação: {{ item.registro_criado}}</li>
+            <li>Data atualização: {{ item.registro_atualizado}}</li>
+            <li>Detalhes da falha: {{ item.detalhes}}</li>
+        </ul>
+        <a href="../../editar/{{item.pk}}">Editar</a>
+        <a href="../../deletar/{{item.pk}}">Deletar</a>
+    {% endfor %}
+{% endblock %}

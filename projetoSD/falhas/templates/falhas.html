@@ -1,66 +1,67 @@
 {% extends 'base.html' %}
 
-<main>
-    {% block content %}
-        <h1> APP falhas </h1>
-        <p>Valor {{ primeiraMes }}</p>
-        <form action=""method="post" name="formulario">
-          {% csrf_token %}
-          <label for="inicialMes">Mês e ano inicial:</label>
-          <select name="mes_inicial" id="inicialMes">
-            {% for item in faixaMes %}
+
+{% block content %}
+    <h1> APP falhas </h1>
+    <p>Valor {{ primeiraMes }}</p>
+    <form action=""method="post" name="formulario">
+      {% csrf_token %}
+      <label for="inicialMes">Mês e ano inicial:</label>
+      <select name="mes_inicial" id="inicialMes">
+        {% for item in faixaMes %}
+          <option value="{{ item }}">{{ item }}</option>
+        {% endfor %}
+      </select>
+      <label for="inicialAno">/</label>
+      <select name="ano_inicial" id="inicialAno">
+        {% for item in faixaAno %}
+          <option value="{{ item }}">{{ item }}</option>
+        {% endfor %}
+      </select>
+      <br>
+
+      <label for="inicialMes">Mês e ano final:</label>
+      <select name="mes_final" id="finalMes">
+        {% for item in faixaMes %}
+          {% if item == ultimaMes %}
+            <option value="{{ item }}" selected="selected">{{ item }}</option>
+            {% else %}
               <option value="{{ item }}">{{ item }}</option>
-            {% endfor %}
-          </select>
-          <label for="inicialAno">/</label>
-          <select name="ano_inicial" id="inicialAno">
-            {% for item in faixaAno %}
+            {% endif %}
+          {% endfor %}
+      </select>
+      <label for="finalAno">/</label>
+      <select name="ano_final" id="finalAno">
+        {% for item in faixaAno %}
+          {% if item == ultimaAno %}
+            <option value="{{ item }}" selected="selected">{{ item }}</option>
+            {% else %}
               <option value="{{ item }}">{{ item }}</option>
-            {% endfor %}
-          </select>
-          <br>
-
-          <label for="inicialMes">Mês e ano final:</label>
-          <select name="mes_final" id="finalMes">
-            {% for item in faixaMes %}
-              {% if item == ultimaMes %}
-                <option value="{{ item }}" selected="selected">{{ item }}</option>
-                {% else %}
-                  <option value="{{ item }}">{{ item }}</option>
-                {% endif %}
-              {% endfor %}
-          </select>
-          <label for="finalAno">/</label>
-          <select name="ano_final" id="finalAno">
-            {% for item in faixaAno %}
-              {% if item == ultimaAno %}
-                <option value="{{ item }}" selected="selected">{{ item }}</option>
-                {% else %}
-                  <option value="{{ item }}">{{ item }}</option>
-                {% endif %}
-              {% endfor %}
-          </select>
-          <input type="submit" value="Submit">
-        </form>
+            {% endif %}
+          {% endfor %}
+      </select>
+      <input type="submit" value="Submit">
+    </form>
 
 
-        <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">Equipamento</th>
-                <th scope="col">Status</th>
-                <th scope="col">Data da atulização</th>
-              </tr>
-            </thead>
-            <tbody>
-            {% for e in lista %}
-              <tr>
-                <td>{{ e.equipamento }}</td>
-                <td>{{ e.get_status_dispositivo_display }}</td>
-                <td>{{ e.registro_atualizado }} <a href="detalhe/{{e.pk}}">Detalhes</a></td>
-              </tr>
-            {% endfor %}
-            </tbody>
-          </table>
-    {% endblock %}
-</main>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Equipamento</th>
+            <th scope="col">Status</th>
+            <th scope="col">Data da atulização</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for e in lista %}
+          <tr>
+            <td>{{ e.equipamento }}</td>
+            <td>{{ e.get_status_dispositivo_display }}</td>
+            <td>{{ e.registro_atualizado }} <a href="detalhe/{{e.pk}}">Detalhes</a></td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+
+      <a href="{% url 'adiciona' %}">adicionar falha</a>
+{% endblock %}

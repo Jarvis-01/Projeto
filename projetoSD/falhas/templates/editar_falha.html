@@ -1,14 +1,13 @@
 {% extends 'base.html' %}
 
-<main>
-    {% block content %}
-        <h1>Editando falha de '{{falhas.titulo}}'</h1>
-        <form action="" method="post">
-            {% csrf_token %}
-            <table>
-                {{ form.as_table }}
-            </table>
-            <input type="submit" value="Submit">
-        </form>
-    {% endblock %}
-</main>
+
+{% block content %}
+    <h1>Editando falha de '{{falhas.titulo}}'</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+        <input type="submit" value="Submit">
+    </form>
+{% endblock %}
