@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'dispositivos',
     'falhas',
     'referer',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
