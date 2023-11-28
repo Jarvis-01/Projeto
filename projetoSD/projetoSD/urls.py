@@ -25,9 +25,10 @@ route.register(r'dispositivos', dispositivosviewset.DispositivoViewSet, basename
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("accounts/", include("django.contrib.auth.urls")),
     path('', include('home.urls')),
     path('dispositivos/', include('dispositivos.urls')),
     path('falhas/', include('falhas.urls')),
     path('api/', include (route.urls)),
-    path("accounts/", include("django.contrib.auth.urls")),
+    path('register/', include('accounts.urls')),
 ]

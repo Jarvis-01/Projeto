@@ -16,6 +16,9 @@
     <div class="container-fluid">
         <header>
             {% include "navbar.html" %}
+            {% if user.is_authenticated %}
+			    <h1>Olá, {{user.username}}</h1>  
+		    {% endif %} 
         </header>
         <main>
             {% block content %}
