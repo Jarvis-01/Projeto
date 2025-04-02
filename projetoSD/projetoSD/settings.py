@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'home',
     'dispositivos',
     'falhas',
-    'referer',
+
     'rest_framework',
     'crispy_forms',
 ]
@@ -85,7 +85,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'bancosd',
-        'USER': 'jarvis',
+        'USER': 'django',
         'PASSWORD': 'teste1',
         'HOST': 'localhost',
         'PORT': '',
