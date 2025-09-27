@@ -3,8 +3,10 @@ from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Falha
 from .forms import FalhasForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+@login_required
 def index(request):
     if request.method == 'POST':
         #copiar os dados enviados
@@ -35,6 +37,7 @@ def index(request):
     }
     return render(request, 'falhas.html', context)
 
+@login_required
 def detalhe(request,pk):
     print("Primary Key {}".format(pk))
     try:
@@ -49,6 +52,7 @@ def detalhe(request,pk):
     }
     return render(request, 'detalhe.html', context)
 
+@login_required
 def adicionar(request):
     form = FalhasForm()
     if request.method == "POST":
@@ -60,8 +64,9 @@ def adicionar(request):
             return redirect('../')
         else:
             form = FalhasForm()
-    return render(request, 'adicionar_dispositivo.html', {'form': form})    
+    return render(request, 'adicionar_falha.html', {'form': form})    
 
+@login_required
 def editar(request, id):
     falhas = get_object_or_404(Falha, pk=id)
     form = FalhasForm(instance=falhas)
@@ -77,7 +82,8 @@ def editar(request, id):
 
     else:
         return render(request, 'editar_falha.html', {'form': form, 'falhas': falhas})
-    
+
+@login_required    
 def deletar(request, id):
     falhas = get_object_or_404(Falha, pk=id)
     falhas.delete()

@@ -20,8 +20,8 @@
     letter-spacing: 1px;
 }
 
-main > h1{
-    color: red;
+main h1{
+    color: blue;
 }
 
 footer{

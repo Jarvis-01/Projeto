@@ -1,6 +1,62 @@
 {% extends 'base.html' %}
-
+{% load static %}
 
 {% block content %}
-    <h1> APP HOME </h1>
+<div class="container text-center mt-5">
+  <h1 class="text-primary">Bem-vindo ao Sistema de Gerenciamento de Dispositivos</h1>
+  <p class="lead mt-3">
+    Este sistema foi desenvolvido com o objetivo de facilitar o controle, manutenção e histórico de falhas
+    dos computadores dos laboratórios do Departamento de Computação - DECOM.
+  </p>
+</div>
+
+{% if user.is_authenticated %}
+<div class="container mt-5">
+  <div class="row text-center">
+    <div class="col-md-6 mb-4">
+      <div class="card shadow">
+        <div class="card-body">
+          <h5 class="card-title">📋 Dispositivos</h5>
+          <p class="card-text">Gerencie os computadores cadastrados no sistema.</p>
+          <a href="{% url 'index1' %}" class="btn btn-primary">Acessar</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 mb-4">
+      <div class="card shadow">
+        <div class="card-body">
+          <h5 class="card-title">⚠️ Histórico de Falhas</h5>
+          <p class="card-text">Consulte falhas registradas nos equipamentos.</p>
+          <a href="{% url 'index2' %}" class="btn btn-warning">Ver falhas</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    {% else %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-4">
+      <div class="card shadow">
+        <div class="card-body text-center">
+          <h5 class="card-title">🔐 Área de Acesso</h5>
+          <p class="card-text">Realize login para acesso completo ao sistema.</p>
+          <a href="{% url 'login' %}" class="btn btn-success">Entrar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+<!--<div class="container text-center mt-5">
+  <h4>Imagem do Departamento de Computação</h4>
+  <img src="{% static 'img/decom_predio.jpg' %}" alt="Prédio do DECOM" class="img-fluid rounded shadow mt-3" style="max-width: 600px;">
+</div>
+-->
+<div class="container text-center mt-5">
+  <h4>Tecnologias Utilizadas</h4>
+  <p>
+    Django • Python • PostgreSQL • Bootstrap • HTML5 • CSS3 • JavaScript • Git • GitHub • Geração de QR Code
+  </p>
+</div>
 {% endblock %}
