@@ -84,7 +84,7 @@ WSGI_APPLICATION = 'projetoSD.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'bancosd',
+        'NAME': 'bancoTCC',
         'USER': 'django',
         'PASSWORD': 'teste1',
         'HOST': 'localhost',
