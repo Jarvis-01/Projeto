@@ -1,2 +1,2 @@
-# Projeto
- Projeto Para disciplina de Sistemas Distribuidos 
+# Projeto TCC
+ Projeto Para o trabalho de conclusão de curso 
