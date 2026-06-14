@@ -43,7 +43,8 @@ ALTER ROLE django SET timezone TO 'America/Sao_Paulo';
 GRANT ALL PRIVILEGES ON DATABASE myproject TO myproject_user;
 ### 5.8. Sair do posgre:
 \q
-**OBS:** Os nomes de usuário, banco de dados e senha são originais do projeto, para possíveis alterações, devem ser usados os mesmos nomes dentro do arquivo *setings.py* do projeto
+
+**OBS:** Os nomes do banco de dados, do usuário e da senha apresentados acima correspondem à configuração original do projeto. Caso sejam alterados, as mesmas alterações deverão ser realizadas no arquivo *settings.py*, localizado na pasta *projetoSD*.
 
 6. Fazer as micrações e executar o projeto:
 ./manage.py migrate
