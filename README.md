@@ -46,6 +46,6 @@ GRANT ALL PRIVILEGES ON DATABASE myproject TO myproject_user;
 
 **OBS:** Os nomes do banco de dados, do usuário e da senha apresentados acima correspondem à configuração original do projeto. Caso sejam alterados, as mesmas alterações deverão ser realizadas no arquivo *settings.py*, localizado na pasta *projetoSD*.
 
-6. Fazer as micrações e executar o projeto:
+## 6. Fazer as micrações e executar o projeto:
 ./manage.py migrate
 ./manage.py runserver
