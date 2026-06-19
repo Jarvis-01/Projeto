@@ -1,5 +1,6 @@
 import io
 from django.http import Http404, HttpResponse
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.shortcuts import render, get_object_or_404, redirect
 from . models import Dispositivos
 from . forms import DispositivosForm, FalhaForm
@@ -7,6 +8,11 @@ import qrcode
 from PIL import Image
 # Create your views here.
 data = ''
+
+def is_admin(user):
+    return user.is_superuser or user.groups.filter(name="Administrador").exists()
+
+@login_required
 def index(request):
     dispositivos = Dispositivos.objects.all()
     context = {
@@ -14,6 +20,7 @@ def index(request):
     }
     return render(request, 'dispositivos.html', context)
 
+@user_passes_test(is_admin)
 def adicionar(request):
     form = DispositivosForm()
     if request.method == "POST":
@@ -27,6 +34,7 @@ def adicionar(request):
             form = DispositivosForm()
     return render(request, 'adicionar_dispositivo.html', {'form': form})
 
+@user_passes_test(is_admin)
 def editar(request, id):
     dispositivos = get_object_or_404(Dispositivos, pk=id)
     form = DispositivosForm(instance=dispositivos)
@@ -42,13 +50,14 @@ def editar(request, id):
 
     else:
         return render(request, 'editar_dispositivo.html', {'form': form, 'dispositivos': dispositivos})
-    
+
+@user_passes_test(is_admin)
 def deletar(request, id):
     dispositivos = get_object_or_404(Dispositivos, pk=id)
     dispositivos.delete()
     return redirect('../')
 
-
+@login_required
 def detalhes(request,pk):
     dispositivo = Dispositivos.objects.get(pk=pk)
     falhas = dispositivo.falhas.all()
@@ -67,6 +76,7 @@ def detalhes(request,pk):
     }
     return render(request, 'detalhes.html', context)
 
+@login_required
 def gerarqr(request):
     data = request.META.get('HTTP_REFERER', None)
     qr = qrcode.QRCode(
@@ -92,6 +102,7 @@ def gerarqr(request):
 
     return response
 
+@login_required
 def criar_falha(request, dispositivo_id):
     dispositivos = Dispositivos.objects.get(pk=dispositivo_id)
     

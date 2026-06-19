@@ -16,6 +16,16 @@
     <div class="container-fluid">
         <header>
             {% include "navbar.html" %}
+            {% if messages %}
+            <div class="container mt-3">
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
             {% if user.is_authenticated %}
 			    <h1>Olá, {{user.username}}</h1>  
 		    {% endif %} 
@@ -24,9 +34,14 @@
             {% block content %}
             {% endblock %}
         </main>
-        <footer>
-            <p>Criado por alunos da UFVJM</p>
+        <footer class="bg-dark text-white py-3 mt-5">
+            <div class="container text-center">
+            <p class="mb-1">Sistema de Gerenciamento de Dispositivos - Decom</p>
+            <p class="mb-1">Desenvolvido como Trabalho de Conclusão de Curso - Sistemas de Informação</p>
+            <p class="mb-0">&copy; 2025 - Todos os direitos reservados</p>
+        </div>
         </footer>
+
     </div>
 
 

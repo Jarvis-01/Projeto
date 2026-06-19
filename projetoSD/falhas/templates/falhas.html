@@ -1,67 +1,91 @@
 {% extends 'base.html' %}
 
+{% block title %}Lista de Falhas{% endblock %}
 
 {% block content %}
-    <h1> APP falhas </h1>
-    <p>Valor {{ primeiraMes }}</p>
-    <form action=""method="post" name="formulario">
+<main class="container mt-5">
+  <h1 class="mb-4">Falhas Registradas</h1>
+
+  <div class="card p-4 shadow-sm mb-4">
+    <form action="" method="post" class="row g-3">
       {% csrf_token %}
-      <label for="inicialMes">Mês e ano inicial:</label>
-      <select name="mes_inicial" id="inicialMes">
-        {% for item in faixaMes %}
-          <option value="{{ item }}">{{ item }}</option>
-        {% endfor %}
-      </select>
-      <label for="inicialAno">/</label>
-      <select name="ano_inicial" id="inicialAno">
-        {% for item in faixaAno %}
-          <option value="{{ item }}">{{ item }}</option>
-        {% endfor %}
-      </select>
-      <br>
+      <div class="col-md-3">
+        <label for="inicialMes" class="form-label">Mês inicial</label>
+        <select name="mes_inicial" id="inicialMes" class="form-select">
+          {% for item in faixaMes %}
+            <option value="{{ item }}">{{ item }}</option>
+          {% endfor %}
+        </select>
+      </div>
 
-      <label for="inicialMes">Mês e ano final:</label>
-      <select name="mes_final" id="finalMes">
-        {% for item in faixaMes %}
-          {% if item == ultimaMes %}
-            <option value="{{ item }}" selected="selected">{{ item }}</option>
-            {% else %}
-              <option value="{{ item }}">{{ item }}</option>
-            {% endif %}
+      <div class="col-md-2">
+        <label for="inicialAno" class="form-label">Ano inicial</label>
+        <select name="ano_inicial" id="inicialAno" class="form-select">
+          {% for item in faixaAno %}
+            <option value="{{ item }}">{{ item }}</option>
           {% endfor %}
-      </select>
-      <label for="finalAno">/</label>
-      <select name="ano_final" id="finalAno">
-        {% for item in faixaAno %}
-          {% if item == ultimaAno %}
-            <option value="{{ item }}" selected="selected">{{ item }}</option>
-            {% else %}
-              <option value="{{ item }}">{{ item }}</option>
-            {% endif %}
+        </select>
+      </div>
+
+      <div class="col-md-3">
+        <label for="finalMes" class="form-label">Mês final</label>
+        <select name="mes_final" id="finalMes" class="form-select">
+          {% for item in faixaMes %}
+            <option value="{{ item }}" {% if item == ultimaMes %}selected{% endif %}>{{ item }}</option>
           {% endfor %}
-      </select>
-      <input type="submit" value="Submit">
+        </select>
+      </div>
+
+      <div class="col-md-2">
+        <label for="finalAno" class="form-label">Ano final</label>
+        <select name="ano_final" id="finalAno" class="form-select">
+          {% for item in faixaAno %}
+            <option value="{{ item }}" {% if item == ultimaAno %}selected{% endif %}>{{ item }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="col-md-2 d-flex align-items-end">
+        <button type="submit" class="btn btn-primary w-100">Filtrar</button>
+      </div>
+
+      <div class="col-md-12 text-end">
+        <a href="#" class="btn btn-outline-secondary">Limpar Filtros</a>
+      </div>
     </form>
+  </div>
 
-
-    <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Equipamento</th>
-            <th scope="col">Status</th>
-            <th scope="col">Data da atulização</th>
-          </tr>
-        </thead>
-        <tbody>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped align-middle">
+      <thead class="table-light">
+        <tr>
+          <th scope="col">Equipamento</th>
+          <th scope="col">Status</th>
+          <th scope="col">Última Atualização</th>
+          <th scope="col" class="text-center">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
         {% for e in lista %}
           <tr>
             <td>{{ e.equipamento }}</td>
             <td>{{ e.get_status_dispositivo_display }}</td>
-            <td>{{ e.registro_atualizado }} <a href="detalhe/{{e.pk}}">Detalhes</a></td>
+            <td>{{ e.registro_atualizado|date:"d/m/Y" }}</td>
+            <td class="text-center">
+              <a href="detalhe/{{e.pk}}" class="btn btn-sm btn-info">Detalhes</a>
+            </td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="4" class="text-center">Nenhuma falha encontrada para o período selecionado.</td>
           </tr>
         {% endfor %}
-        </tbody>
-      </table>
+      </tbody>
+    </table>
+  </div>
 
-      <a href="{% url 'adiciona' %}">adicionar falha</a>
+  <div class="mt-3">
+    <a href="{% url 'adiciona' %}" class="btn btn-success">Adicionar nova falha</a>
+  </div>
+</main>
 {% endblock %}

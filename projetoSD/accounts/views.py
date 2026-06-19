@@ -11,9 +11,9 @@ def register(request):
 
         if form.is_valid():
             user = form.save(commit=False)
-            user.is_valid = False
+            user.is_active = False
             user.save()
-            messages.success(request, 'Registrado. Agora faça o login para começar!')
+            messages.success(request, "Cadastro realizado! Aguarde aprovação do administrador.")
             return redirect('index')
 
         else:
